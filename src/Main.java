@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.reflect.Array;
 
 public class Main {
         /**
@@ -94,18 +95,38 @@ public class Main {
          * @return
          */
         public static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
+            System.out.println("NEW DISPLAY");
             boolean kReset = false;
             int j = 0;
             int k = 0;
             for (int i = 0; i < 64; i++) {
                 movementCoords[2] = j;
                 movementCoords[3] = k;
-                System.out.println("X " + j  + "Y " + k);
+                System.out.println("X " + j  + " Y " + k);
+                //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit heighlights enemy pieves as possible moves
                 if (piece.checkMovement(movementCoords)) {
                     System.out.println("CHECK MOVEMENT TRUE");
-                    if (blankSquares[j][k].getComponentCount() == 0){
+                    if (blankSquares[j][k].getComponentCount() == 1){
+                        Component[] Components = blankSquares[j][k].getComponents();
+                        if (Components[0] instanceof Piece){
+                            if (piece.isOrange()){
+                                if (!((Piece) Components[0]).isOrange()){
+                                    blankSquares[j][k].setColour(Color.RED);
+                                    blankSquares[j][k].repaint();
+                                    
+                                }
+                            } else if (!piece.isOrange()) {
+                                if (((Piece) Components[0]).isOrange()){
+                                    blankSquares[j][k].setColour(Color.RED);
+                                    blankSquares[j][k].repaint();
+                                }
+                            }
+                        }
+
+                    }else {
                         blankSquares[j][k].setColour(Color.RED);
                         blankSquares[j][k].repaint();
+                        
                     }
                 }
 
