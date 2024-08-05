@@ -96,12 +96,13 @@ public class Main {
          */
         public static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
             System.out.println("NEW DISPLAY");
+            System.out.println("X " + movementCoords[0] + " Y " + movementCoords[1] + " Player coordinates");
             boolean kReset = false;
             int j = 0;
             int k = 0;
             for (int i = 0; i < 64; i++) {
-                movementCoords[2] = j;
-                movementCoords[3] = k;
+                movementCoords[2] = k;
+                movementCoords[3] = j;
                 System.out.println("X " + j  + " Y " + k);
                 //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit heighlights enemy pieves as possible moves
                 if (piece.checkMovement(movementCoords)) {
