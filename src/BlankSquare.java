@@ -4,23 +4,26 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class BlankSquare extends JPanel implements MouseListener {
-    private Color colour;
     private boolean pressed = false;
     private boolean multiplePieces =false;
+    private boolean isBlack = false;
     BlankSquare(Color colour){
         setVisible(true);
         setOpaque(true);
         setColour(colour);
-        setBackground(this.colour);
+        if (colour == Color.black){
+            isBlack = true;
+        }
         addMouseListener(this);
 
     }
-    public Color getColour() {
-        return colour;
+
+    public boolean isBlack() {
+        return isBlack;
     }
 
     public void setColour(Color colour) {
-        this.colour = colour;
+        setBackground(colour);
     }
 
     public boolean hasMultiplePieces() {

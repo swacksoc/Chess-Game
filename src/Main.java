@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Main {
         /**
          * Checks Square in front of piece to see if it has a piece on it
@@ -96,22 +98,30 @@ public class Main {
             int j = 0;
             int k = 0;
             for (int i = 0; i < 64; i++) {
-                movementCoords[2] = k;
-                movementCoords[3] = j;
+                movementCoords[2] = j;
+                movementCoords[3] = k;
+                System.out.println("X " + j  + "Y " + k);
                 if (piece.checkMovement(movementCoords)) {
-
+                    System.out.println("CHECK MOVEMENT TRUE");
+                    if (blankSquares[j][k].getComponentCount() == 0){
+                        blankSquares[j][k].setColour(Color.RED);
+                        blankSquares[j][k].repaint();
+                    }
                 }
 
 
                 if (k == 7 && j != 7) {
+                    System.out.println("K RESET");
                     k = 0;
                     kReset = true;
                     j++;
                 }
 
                 if (!kReset) {
+                    System.out.println("K Increase");
                     k++;
                 }
+                kReset = false;
             }
 
         }
@@ -154,6 +164,7 @@ public class Main {
                         pieces[j][k].setPressed(false);
                         movementCoords[0] = j;
                         movementCoords[1] = k;
+                        displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[j][k]);
                         piecePressed = true;
                         System.out.println("piece break");
                     }
@@ -253,6 +264,27 @@ public class Main {
                 if (l == 7 && m == 7) {
                     l = 0;
                     m = 0;
+                }
+
+            }
+            //Resets colors to original colours
+            int a = 0;
+            int b  = 0;
+            for (int i = 0; i < 64; i++) {
+                boolean reset = false;
+                if (blankSquares[a][b].isBlack()){
+                    blankSquares[a][b].setColour(Color.black);
+                }else {
+                    blankSquares[a][b].setColour(Color.white);
+                }
+
+                if (a == 7) {
+                    b++;
+                    a = 0;
+                    reset = true;
+                }
+                if (!reset) {
+                    a++;
                 }
 
             }
