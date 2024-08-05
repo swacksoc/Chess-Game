@@ -111,20 +111,20 @@ public class Main {
                         if (Components[0] instanceof Piece){
                             if (piece.isOrange()){
                                 if (!((Piece) Components[0]).isOrange()){
-                                    blankSquares[j][k].setColour(Color.RED);
+                                    blankSquares[j][k].setColour(Color.GREEN);
                                     blankSquares[j][k].repaint();
                                     
                                 }
                             } else if (!piece.isOrange()) {
                                 if (((Piece) Components[0]).isOrange()){
-                                    blankSquares[j][k].setColour(Color.RED);
+                                    blankSquares[j][k].setColour(Color.GREEN);
                                     blankSquares[j][k].repaint();
                                 }
                             }
                         }
 
                     }else {
-                        blankSquares[j][k].setColour(Color.RED);
+                        blankSquares[j][k].setColour(Color.GREEN);
                         blankSquares[j][k].repaint();
                         
                     }
