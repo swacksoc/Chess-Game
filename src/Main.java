@@ -7,21 +7,21 @@ public class Main {
          * @return true if piece false if not
          */
         public static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
-            int x1 = movementCoords[0];
-            int y1 = movementCoords[1];
-            int x2 = movementCoords[2];
-            int y2 = movementCoords[3];
+            int y1 = movementCoords[0];
+            int x1 = movementCoords[1];
+            int y2 = movementCoords[2];
+            int x2 = movementCoords[3];
             boolean returnVal = false;
-            if (pieces[x1][y1].isOrange()){
-                if (pieces[x1-1][y1] != null){
-                    if (!pieces[x1-1][y1].isOrange()){
+            if (pieces[y1][x1].isOrange()){
+                if (pieces[y1-1][x1] != null){
+                    if (!pieces[y1-1][x1].isOrange()){
                         returnVal = true;
                     }
                 }
 
             }else {
-                if (pieces[x1+1][y1] != null) {
-                    if (pieces[x1 + 1][y1].isOrange()) {
+                if (pieces[y1+1][x1] != null) {
+                    if (pieces[y1 + 1][x1].isOrange()) {
                         returnVal = true;
                     }
                 }
@@ -36,14 +36,14 @@ public class Main {
          * @return true if piece in
          */
         public static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
-            int x1 = movementCoords[0];
-            int y1 = movementCoords[1];
-            int x2 = movementCoords[2];
-            int y2 = movementCoords[3];
+            int y1 = movementCoords[0];
+            int x1 = movementCoords[1];
+            int y2 = movementCoords[2];
+            int x2 = movementCoords[3];
             boolean returnVal = false;
-            if (pieces[x1][y1].isOrange()){
-                if (pieces[x1-1][y1-1] != null){
-                    if (!pieces[x1-1][y1-1].isOrange()){
+            if (pieces[y1][x1].isOrange()){
+                if (pieces[y1-1][x1-1] != null){
+                    if (!pieces[y1-1][x1-1].isOrange()){
                         returnVal = true;
                     }
                 }
@@ -64,22 +64,22 @@ public class Main {
          * @return true if piece false if not
          */
         public static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
-            int x1 = movementCoords[0];
-            int y1 = movementCoords[1];
-            int x2 = movementCoords[2];
-            int y2 = movementCoords[3];
+            int y1 = movementCoords[0];
+            int x1 = movementCoords[1];
+            int y2 = movementCoords[2];
+            int x2 = movementCoords[3];
             boolean returnVal = false;
-            if (pieces[x1][y1].isOrange()) {
+            if (pieces[y1][x1].isOrange()) {
 
-                if (pieces[x1 - 1][y1 + 1] != null){
-                    if (!pieces[x1 - 1][y1 + 1].isOrange()) {
+                if (pieces[y1 - 1][x1 + 1] != null){
+                    if (!pieces[y1 - 1][x1 + 1].isOrange()) {
                         returnVal = true;
                     }
                 }
             }else {
 
-                if (pieces[x1+1][y1-1] != null){
-                    if (pieces[x1+1][y1-1].isOrange()){
+                if (pieces[y1+1][x1-1] != null){
+                    if (pieces[y1+1][x1-1].isOrange()){
                         returnVal = true;
                     }
                 }
@@ -96,15 +96,15 @@ public class Main {
          */
         public static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
             System.out.println("NEW DISPLAY");
-            System.out.println("X " + movementCoords[0] + " Y " + movementCoords[1] + " Player coordinates");
+            System.out.println("Y " + movementCoords[0] + " X " + movementCoords[1] + " Player coordinates");
             boolean kReset = false;
             int j = 0;
             int k = 0;
             for (int i = 0; i < 64; i++) {
                 movementCoords[2] = k;
                 movementCoords[3] = j;
-                System.out.println("X " + j  + " Y " + k);
-                //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit heighlights enemy pieves as possible moves
+                System.out.println("X " + k + " Y " + j);
+                //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit highlights enemy pieces as possible moves
                 if (piece.checkMovement(movementCoords)) {
                     System.out.println("CHECK MOVEMENT TRUE");
                     if (blankSquares[j][k].getComponentCount() == 1){
@@ -181,12 +181,12 @@ public class Main {
             boolean piecePressed = false;
             while (!piecePressed) {
                 boolean reset = false;
-                if (pieces[j][k] != null) {
-                    if (pieces[j][k].isPressed()) {
-                        pieces[j][k].setPressed(false);
-                        movementCoords[0] = j;
-                        movementCoords[1] = k;
-                        displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[j][k]);
+                if (pieces[k][j] != null) {
+                    if (pieces[k][j].isPressed()) {
+                        pieces[k][j].setPressed(false);
+                        movementCoords[0] = k;
+                        movementCoords[1] = j;
+                        displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
                         piecePressed = true;
                         System.out.println("piece break");
                     }
