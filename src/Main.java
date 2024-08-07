@@ -12,6 +12,9 @@ public class Main {
             int y2 = movementCoords[2];
             int x2 = movementCoords[3];
             boolean returnVal = false;
+
+
+            //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
                 if (y1 > 0 && y1 < 8){
 
@@ -51,6 +54,7 @@ public class Main {
             int y2 = movementCoords[2];
             int x2 = movementCoords[3];
             boolean returnVal = false;
+            //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
                 if (pieces[y1-1][x1-1] != null){
                     if (!pieces[y1-1][x1-1].isOrange()){
@@ -60,8 +64,8 @@ public class Main {
             }else {
                 if (x1 < 7 && y1 < 7){
 
-                    if (pieces[x1+1][y1+1] != null){
-                        if (pieces[x1 + 1][y1 + 1].isOrange()){
+                    if (pieces[y1+1][x1+1] != null){
+                        if (pieces[y1 + 1][x1 + 1].isOrange()){
                             returnVal = true;
                         }
                     }
@@ -80,6 +84,7 @@ public class Main {
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             boolean returnVal = false;
+            //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()) {
                 if (y1 > 0 && x1 < 7){
                     if (pieces[y1 - 1][x1 + 1] != null){
@@ -261,6 +266,7 @@ public class Main {
             int x = 0;
             int y = 0;
             for (int i = 0; i < 64; i++) {
+                System.out.println("Resetting");
                 boolean reset = false;
                 blankSquares[y][x].setPressed(false);
                 if (x == 7) {
@@ -278,9 +284,11 @@ public class Main {
             int l = 0;
             int m = 0;
             while (!squarePressed) {
+                System.out.println("2nd Stage");
                 boolean reset = false;
                 if (pieces[movementCoords[0]][movementCoords[1]].getClass() != Pawn.class){
                     if (blankSquares[l][m].isPressed()) {
+                        System.out.println("Press detected 2nd stagem");
                         blankSquares[l][m].setPressed(false);
                         movementCoords[2] = l;
                         movementCoords[3] = m;
@@ -293,6 +301,11 @@ public class Main {
                     }
 
                 } else if (pieces[movementCoords[0]][movementCoords[1]].getClass() == Pawn.class) {
+                    System.out.println("Pawn Detected");
+                    System.out.println(checkLeftDiagonal(movementCoords,pieces) + " Left Diagonal Check");
+                    System.out.println(checkRightDiagonal(movementCoords,pieces) + " Right Diagonal Check");
+                    System.out.println(checkFront(movementCoords,pieces) + " Front Check");
+
                     if (!checkLeftDiagonal(movementCoords,pieces) && !checkRightDiagonal(movementCoords,pieces) && !checkFront(movementCoords,pieces)) {
                         if (blankSquares[l][m].isPressed()) {
                             blankSquares[l][m].setPressed(false);
