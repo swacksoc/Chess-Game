@@ -52,6 +52,7 @@ public class Pawn extends Piece {
             }
 
         }
+        System.out.println("False Coordinates Y " + movementCoords[2] + " X " +  movementCoords[3]);
        return false;
     }
 
@@ -64,10 +65,10 @@ public class Pawn extends Piece {
      * @return
      */
     public boolean checkTake(int[] movementCoords,boolean pieceInFront,boolean pieceLeftDiagonal,boolean pieceRightDiagonal) {
-        int x1 = movementCoords[0];
-        int y1 = movementCoords[1];
-        int x2 = movementCoords[2];
-        int y2 = movementCoords[3];
+        int y1 = movementCoords[0];
+        int x1 = movementCoords[1];
+        int y2 = movementCoords[2];
+        int x2 = movementCoords[3];
 
         if (pieceInFront && !pieceLeftDiagonal && !pieceRightDiagonal) {
             return false;

@@ -13,17 +13,27 @@ public class Main {
             int x2 = movementCoords[3];
             boolean returnVal = false;
             if (pieces[y1][x1].isOrange()){
-                if (pieces[y1-1][x1] != null){
-                    if (!pieces[y1-1][x1].isOrange()){
-                        returnVal = true;
+                if (y1 > 0 && y1 < 8){
+
+                    if (pieces[y1-1][x1] != null){
+                        if (!pieces[y1-1][x1].isOrange()){
+                            returnVal = true;
+                        }
                     }
+                }else {
+                    returnVal = false;
                 }
 
             }else {
-                if (pieces[y1+1][x1] != null) {
-                    if (pieces[y1 + 1][x1].isOrange()) {
-                        returnVal = true;
+                if (y1 > 0 && y1 > 8){
+
+                    if (pieces[y1+1][x1] != null) {
+                        if (pieces[y1 + 1][x1].isOrange()) {
+                            returnVal = true;
+                        }
                     }
+                }else {
+                    returnVal = false;
                 }
             }
             return returnVal;
@@ -48,9 +58,12 @@ public class Main {
                     }
                 }
             }else {
-                if (pieces[x1+1][y1+1] != null){
-                    if (pieces[x1 + 1][y1 + 1].isOrange()){
-                        returnVal = true;
+                if (x1 < 7 && y1 < 7){
+
+                    if (pieces[x1+1][y1+1] != null){
+                        if (pieces[x1 + 1][y1 + 1].isOrange()){
+                            returnVal = true;
+                        }
                     }
                 }
             }
@@ -66,22 +79,27 @@ public class Main {
         private static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
-            int y2 = movementCoords[2];
-            int x2 = movementCoords[3];
             boolean returnVal = false;
             if (pieces[y1][x1].isOrange()) {
-
-                if (pieces[y1 - 1][x1 + 1] != null){
-                    if (!pieces[y1 - 1][x1 + 1].isOrange()) {
-                        returnVal = true;
+                if (y1 > 0 && x1 < 7){
+                    if (pieces[y1 - 1][x1 + 1] != null){
+                        if (!pieces[y1 - 1][x1 + 1].isOrange()) {
+                            returnVal = true;
+                        }
                     }
+                }else {
+                    returnVal = false;
                 }
             }else {
+                if (y1 < 7 && x1 > 0 ){
 
-                if (pieces[y1+1][x1-1] != null){
-                    if (pieces[y1+1][x1-1].isOrange()){
-                        returnVal = true;
+                    if (pieces[y1+1][x1-1] != null){
+                        if (pieces[y1+1][x1-1].isOrange()){
+                            returnVal = true;
+                        }
                     }
+                }else {
+                    returnVal = false;
                 }
             }
             return returnVal;
@@ -184,30 +202,40 @@ public class Main {
                 if (pieces[k][j] != null) {
 
                     if (turn % 2 == 0){
-                        if (pieces[k][j].isOrange()){
-                            pieces[k][j].setPressed(false);
-                        } else if (!pieces[k][j].isOrange()) {
-                            if (pieces[k][j].isPressed()) {
+                        if (pieces[k][j].isPressed()){
+
+                            if (pieces[k][j].isOrange()){
+                                System.out.println("Orange Yellow turn");
+                                pieces[k][j].setPressed(false);
+
+                            } else if (!pieces[k][j].isOrange()) {
+                                System.out.println("Orange orange turn");
                                 pieces[k][j].setPressed(false);
                                 movementCoords[0] = k;
                                 movementCoords[1] = j;
                                 displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
                                 piecePressed = true;
                                 System.out.println("piece break");
+
                             }
                         }
                     } else if (turn % 2 != 0) {
-                        if (!pieces[k][j].isOrange()){
-                            pieces[k][j].setPressed(false);
+                        if (pieces[k][j].isPressed()){
 
-                        } else if (pieces[k][j].isOrange()) {
-                            if (pieces[k][j].isPressed()) {
+                            if (!pieces[k][j].isOrange()){
+                                System.out.println("Yellow - orange Turn");
                                 pieces[k][j].setPressed(false);
-                                movementCoords[0] = k;
-                                movementCoords[1] = j;
-                                displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
-                                piecePressed = true;
-                                System.out.println("piece break");
+
+                            } else if (pieces[k][j].isOrange()) {
+                                if (pieces[k][j].isPressed()) {
+                                    System.out.println("Yellow Orange Turn");
+                                    pieces[k][j].setPressed(false);
+                                    movementCoords[0] = k;
+                                    movementCoords[1] = j;
+                                    displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
+                                    piecePressed = true;
+                                    System.out.println("piece break");
+                                }
                             }
                         }
                     }
@@ -334,6 +362,7 @@ public class Main {
             board.movePieces(movementCoords);
             System.out.println("Moved");
             turn++;
+            System.out.println(turn + " turn");
 
 
         }
