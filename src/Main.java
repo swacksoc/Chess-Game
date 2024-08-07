@@ -101,8 +101,8 @@ public class Main {
             int j = 0;
             int k = 0;
             for (int i = 0; i < 64; i++) {
-                movementCoords[2] = k;
-                movementCoords[3] = j;
+                movementCoords[2] = j;
+                movementCoords[3] = k;
                 System.out.println("X " + k + " Y " + j);
                 //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit highlights enemy pieces as possible moves
                 if (piece.checkMovement(movementCoords)) {

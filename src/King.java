@@ -18,7 +18,9 @@ public class King extends Piece {
             || y1 - y2 == -1 && x1-x2 == 0
             || y1 - y2 == 1 && x1-x2 == 1
             || y1 - y2 == -1 && x1 - x2 == 1
-            || y1 - y2 == 1 && x1 - x2 == -1){
+            || y1 - y2 == 1 && x1 - x2 == -1
+            ||y1 - y2 == -1 && x1 - x2 == -1
+        ){
 
             return true;
 
