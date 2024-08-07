@@ -6,7 +6,7 @@ public class Main {
          * Checks Square in front of piece to see if it has a piece on it
          * @return true if piece false if not
          */
-        public static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
+        private static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
@@ -35,7 +35,7 @@ public class Main {
          * @param pieces piece list
          * @return true if piece in
          */
-        public static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
+        private static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
@@ -63,7 +63,7 @@ public class Main {
          * @param pieces piece list
          * @return true if piece false if not
          */
-        public static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
+        private static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
@@ -94,7 +94,7 @@ public class Main {
          * @param piece
          * @return
          */
-        public static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
+        private static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
             System.out.println("NEW DISPLAY");
             System.out.println("Y " + movementCoords[0] + " X " + movementCoords[1] + " Player coordinates");
             boolean kReset = false;
@@ -147,10 +147,10 @@ public class Main {
             }
 
         }
-
     public static void main(String[] args) {
         Board board = new Board("Chess Game", 1000, 1000);
 
+        int turn = 0;
         //Main Event Loop
         while (true) {
 
@@ -182,15 +182,35 @@ public class Main {
             while (!piecePressed) {
                 boolean reset = false;
                 if (pieces[k][j] != null) {
-                    if (pieces[k][j].isPressed()) {
-                        pieces[k][j].setPressed(false);
-                        movementCoords[0] = k;
-                        movementCoords[1] = j;
-                        displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
-                        piecePressed = true;
-                        System.out.println("piece break");
-                    }
 
+                    if (turn % 2 == 0){
+                        if (pieces[k][j].isOrange()){
+                            pieces[k][j].setPressed(false);
+                        } else if (!pieces[k][j].isOrange()) {
+                            if (pieces[k][j].isPressed()) {
+                                pieces[k][j].setPressed(false);
+                                movementCoords[0] = k;
+                                movementCoords[1] = j;
+                                displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
+                                piecePressed = true;
+                                System.out.println("piece break");
+                            }
+                        }
+                    } else if (turn % 2 != 0) {
+                        if (!pieces[k][j].isOrange()){
+                            pieces[k][j].setPressed(false);
+
+                        } else if (pieces[k][j].isOrange()) {
+                            if (pieces[k][j].isPressed()) {
+                                pieces[k][j].setPressed(false);
+                                movementCoords[0] = k;
+                                movementCoords[1] = j;
+                                displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
+                                piecePressed = true;
+                                System.out.println("piece break");
+                            }
+                        }
+                    }
                 }
 
                 if (j == 7) {
@@ -313,7 +333,7 @@ public class Main {
             //Checks if multiple pieces on same square
             board.movePieces(movementCoords);
             System.out.println("Moved");
-
+            turn++;
 
 
         }
