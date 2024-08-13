@@ -117,7 +117,7 @@ public class Main {
          * @param piece
          * @return
          */
-        private static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece) {
+        private static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece,Piece[][] pieces) {
             System.out.println("NEW DISPLAY");
             System.out.println("Y " + movementCoords[0] + " X " + movementCoords[1] + " Player coordinates");
             boolean kReset = false;
@@ -128,7 +128,7 @@ public class Main {
                 movementCoords[3] = k;
                 System.out.println("X " + k + " Y " + j);
                 //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit highlights enemy pieces as possible moves
-                if (piece.checkMovement(movementCoords)) {
+                if (piece.checkMovement(movementCoords,pieces)) {
                     System.out.println("CHECK MOVEMENT TRUE");
                     if (blankSquares[j][k].getComponentCount() == 1){
                         Component[] Components = blankSquares[j][k].getComponents();
@@ -218,7 +218,7 @@ public class Main {
                                 pieces[k][j].setPressed(false);
                                 movementCoords[0] = k;
                                 movementCoords[1] = j;
-                                displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
+                                displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j],pieces);
                                 piecePressed = true;
                                 System.out.println("piece break");
 
@@ -237,7 +237,7 @@ public class Main {
                                     pieces[k][j].setPressed(false);
                                     movementCoords[0] = k;
                                     movementCoords[1] = j;
-                                    displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j]);
+                                    displayPieceMoves(board.getBlankSquares(), movementCoords,pieces[k][j],pieces);
                                     piecePressed = true;
                                     System.out.println("piece break");
                                 }
@@ -284,7 +284,6 @@ public class Main {
             int l = 0;
             int m = 0;
             while (!squarePressed) {
-                System.out.println("2nd Stage");
                 boolean reset = false;
                 if (pieces[movementCoords[0]][movementCoords[1]].getClass() != Pawn.class){
                     if (blankSquares[l][m].isPressed()) {
@@ -294,7 +293,7 @@ public class Main {
                         movementCoords[3] = m;
                         int yOne = movementCoords[0];
                         int xOne = movementCoords[1];
-                        if (pieces[yOne][xOne].checkMovement(movementCoords)) {
+                        if (pieces[yOne][xOne].checkMovement(movementCoords,pieces)) {
                             squarePressed = true;
                             System.out.println("Valid Normal Move");
                         }
@@ -313,7 +312,7 @@ public class Main {
                             movementCoords[3] = m;
                             int yOne = movementCoords[0];
                             int xOne = movementCoords[1];
-                            if (pieces[yOne][xOne].checkMovement(movementCoords)) {
+                            if (pieces[yOne][xOne].checkMovement(movementCoords,pieces)) {
                                 squarePressed = true;
                                 System.out.println("Valid Normal Move");
                             }

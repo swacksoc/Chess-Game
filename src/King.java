@@ -7,7 +7,7 @@ public class King extends Piece {
         addMouseListener(this);
     }
     @Override
-    public boolean checkMovement(int[] movementCoords){
+    public boolean checkMovement(int[] movementCoords,Piece[][] pieces){
         int x1 =movementCoords[0];
         int y1 = movementCoords[1];
         int x2 = movementCoords[2];
