@@ -23,11 +23,25 @@ public class Bishop extends Piece {
                 && (((x1 - x2) == (y1 -y2))||
                 ((x1 - x2) ==(y1 - y2) * -1))||
                 (((x1 - x2) * -1) == (y1 - y2))){
+
+
+            
             System.out.println(sqrt((y1 - y2) * (y1 -y2)) + " FOR LOOP BISHOP CHECK");
             double positiveDifferenceY1AndY2 = sqrt((y1 - y2) * (y1 -y2));
             for (int i = 0; i < positiveDifferenceY1AndY2 - 2;i++){
                 System.out.println(" I " + i + " DIFF " + positiveDifferenceY1AndY2);
-                if (y1 - y2 < 0 && x1 - x2 < 0){
+                System.out.println(sqrt((y1 - y2) * (y1 - y2)) + " Y CHECKING LOOP");
+                System.out.println(sqrt((x1 - x2) * (x1 - x2)) + " X CHECKING LOOP" );
+
+
+                if (sqrt((y1 - y2) * (y1 - y2)) == 1 && sqrt((x1 - x2) * (x1 - x2)) == 1){
+
+                    System.out.println("FIRST");
+                    if (pieces[y2][x2] != null){//TODO FIX
+                        System.out.println("Piece Found Next to");
+                        return false;
+                    }
+                }else if (y1 - y2 < 0 && x1 - x2 < 0){
                     System.out.println("1");
                     y2 = y2 - 1;
                     x2 = x2 - 1;
