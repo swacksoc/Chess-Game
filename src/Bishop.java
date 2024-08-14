@@ -1,5 +1,7 @@
 import javax.swing.*;
 
+import java.awt.*;
+
 import static java.lang.Math.sqrt;
 
 public class Bishop extends Piece {
@@ -10,12 +12,13 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean checkMovement(int[] movementCoords,Piece[][] pieces) {
+    public boolean checkMovement(int[] movementCoords,Piece[][] pieces,BlankSquare[][] blankSquares) {
         int y1 =movementCoords[0];
         int x1 = movementCoords[1];
         int y2 = movementCoords[2];
         int x2 = movementCoords[3];
-        System.out.println(y1 + " y1" + y2 + "y2");
+        System.out.println(y1 + " y1 " + y2 + "y2");
+
         if ((y1 != y2 && x1 != x2)
                 && (((x1 - x2) == (y1 -y2))||
                 ((x1 - x2) ==(y1 - y2) * -1))||
@@ -28,24 +31,29 @@ public class Bishop extends Piece {
                     System.out.println("1");
                     y2 = y2 - 1;
                     x2 = x2 - 1;
+                    blankSquares[y2][x2].setColour(Color.ORANGE);
                     if (pieces[y2][x2] != null){
                         System.out.println("Piece found");
                         return false;
                     }
                 }else if (y1 - y2 > 0 && x1 - x2 > 0){
                     System.out.println("2");
-                    y2 = y2 + 1;
-                    x2 = x2 + 1;
+                    blankSquares[y2][x2].setColour(Color.BLUE);
                     if (pieces[y2][x2] != null){
                         System.out.println("Piece found");
                         return false;
                     }
+                    y2 = y2 + 1;
+                    x2 = x2 + 1;
+
                 } else if (y1 - y2 < 0 && x1 - x2 > 0) {
                     System.out.println("Y2 " + y2);
                     System.out.println("X2 " + x2);
                     System.out.println("3");
                     y2 = y2 - 1;
                     x2 = x2 + 1;
+                    blankSquares[y2][x2].setColour(Color.red);
+
                     if (pieces[y2][x2] != null){
                         System.out.println("Piece Found");
                         return false;
@@ -54,6 +62,7 @@ public class Bishop extends Piece {
                     System.out.println("4");
                     y2 = y2 + 1;
                     x2 = x2 - 1;
+                    blankSquares[y2][x2].setColour(Color.pink);
                     if (pieces[y2][x2] != null){
                         System.out.println("Piece Found");
                         return false;

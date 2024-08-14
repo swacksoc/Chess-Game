@@ -128,7 +128,7 @@ public class Main {
                 movementCoords[3] = k;
                 System.out.println("X " + k + " Y " + j);
                 //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit highlights enemy pieces as possible moves
-                if (piece.checkMovement(movementCoords,pieces)) {
+                if (piece.checkMovement(movementCoords,pieces,blankSquares)) {
                     System.out.println("CHECK MOVEMENT TRUE");
                     if (blankSquares[j][k].getComponentCount() == 1){
                         Component[] Components = blankSquares[j][k].getComponents();
@@ -156,14 +156,12 @@ public class Main {
 
 
                 if (k == 7 && j != 7) {
-                    System.out.println("K RESET");
                     k = 0;
                     kReset = true;
                     j++;
                 }
 
                 if (!kReset) {
-                    System.out.println("K Increase");
                     k++;
                 }
                 kReset = false;
@@ -293,7 +291,7 @@ public class Main {
                         movementCoords[3] = m;
                         int yOne = movementCoords[0];
                         int xOne = movementCoords[1];
-                        if (pieces[yOne][xOne].checkMovement(movementCoords,pieces)) {
+                        if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares())) {
                             squarePressed = true;
                             System.out.println("Valid Normal Move");
                         }
@@ -312,7 +310,7 @@ public class Main {
                             movementCoords[3] = m;
                             int yOne = movementCoords[0];
                             int xOne = movementCoords[1];
-                            if (pieces[yOne][xOne].checkMovement(movementCoords,pieces)) {
+                            if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares())) {
                                 squarePressed = true;
                                 System.out.println("Valid Normal Move");
                             }

@@ -18,7 +18,7 @@ public class Pawn extends Piece {
      * @return True if within rules false if not
      */
     @Override
-    public boolean checkMovement(int[] movementCoords, Piece[][] pieces) {
+    public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares) {
 
         int x1 = movementCoords[0];
         int y1 = movementCoords[1];

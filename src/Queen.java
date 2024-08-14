@@ -8,7 +8,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean checkMovement(int[] movementCoords,Piece[][] pieces){
+    public boolean checkMovement(int[] movementCoords,Piece[][] pieces,BlankSquare[][] blankSquares){
         int x1 =movementCoords[0];
         int y1 = movementCoords[1];
         int x2 = movementCoords[2];

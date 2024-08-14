@@ -87,7 +87,7 @@ abstract class Piece extends JLabel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public boolean checkMovement(int [] movementCoords,Piece[][] pieces){
+    public boolean checkMovement(int [] movementCoords,Piece[][] pieces, BlankSquare[][] blankSquares){
         System.out.println("Inherited Check");
         return true;
 
