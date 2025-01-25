@@ -163,6 +163,10 @@ public class Board extends JFrame {
      * Move pieces method
       */
     public void movePieces(int[] coordsArray){
+        System.out.println("MOVING");
+        for (int number: coordsArray){
+            System.out.println(number);
+        }
         System.out.println("Moving Pieces Start");
         int yCoordOne = coordsArray[0];
         int yCoordTwo = coordsArray[2];

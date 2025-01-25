@@ -5,6 +5,7 @@ abstract class Piece extends JLabel implements MouseListener {
     private ImageIcon image;
     private boolean isOrange;
     private boolean pressed;
+    private boolean disableCheckMovement;
     public boolean isPressed() {
         return pressed;
     }
@@ -87,7 +88,15 @@ abstract class Piece extends JLabel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public boolean checkMovement(int [] movementCoords,Piece[][] pieces, BlankSquare[][] blankSquares){
+    public boolean isDisableCheckMovement() {
+        return disableCheckMovement;
+    }
+
+    public void setDisableCheckMovement(boolean disableCheckMovement) {
+        this.disableCheckMovement = disableCheckMovement;
+    }
+
+    public boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares){
         System.out.println("Inherited Check");
         return true;
 

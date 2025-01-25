@@ -48,28 +48,28 @@ public class Main {
          * @param pieces piece list
          * @return true if piece in
          */
-        private static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
+        private static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces,Board board){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
             int x2 = movementCoords[3];
             boolean returnVal = false;
+            BlankSquare[][] blankSquares = board.getBlankSquares();
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
-                if (pieces[y1-1][x1-1] != null){
-                    if (!pieces[y1-1][x1-1].isOrange()){
+                blankSquares[y1 - 1][x1 - 1].setColour(Color.red);
+                if (pieces[y1 - 1][x1 - 1] != null){
+                    if (!pieces[y1 - 1][x1 - 1].isOrange()){
                         returnVal = true;
                     }
                 }
             }else {
-                if (x1 < 7 && y1 < 7){
-
-                    if (pieces[y1+1][x1+1] != null){
+                    blankSquares[y1 + 1][x1 + 1].setColour(Color.red);
+                    if (pieces[y1 + 1][x1 + 1] != null){
                         if (pieces[y1 + 1][x1 + 1].isOrange()){
                             returnVal = true;
                         }
                     }
-                }
             }
             return returnVal;
         }
@@ -80,12 +80,14 @@ public class Main {
          * @param pieces piece list
          * @return true if piece false if not
          */
-        private static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
+        private static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces,Board board){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             boolean returnVal = false;
+            BlankSquare[][] blankSquares = board.getBlankSquares();
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()) {
+                blankSquares[y1 - 1][x1 + 1].setColour(Color.PINK);
                 if (y1 > 0 && x1 < 7){
                     if (pieces[y1 - 1][x1 + 1] != null){
                         if (!pieces[y1 - 1][x1 + 1].isOrange()) {
@@ -96,16 +98,12 @@ public class Main {
                     returnVal = false;
                 }
             }else {
-                if (y1 < 7 && x1 > 0 ){
-
+                    blankSquares[y1 + 1][x1 - 1].setColour(Color.PINK);
                     if (pieces[y1+1][x1-1] != null){
                         if (pieces[y1+1][x1-1].isOrange()){
                             returnVal = true;
                         }
                     }
-                }else {
-                    returnVal = false;
-                }
             }
             return returnVal;
         }
@@ -166,7 +164,6 @@ public class Main {
                 }
                 kReset = false;
             }
-
         }
     public static void main(String[] args) {
         Board board = new Board("Chess Game", 1000, 1000);
@@ -264,7 +261,6 @@ public class Main {
             int x = 0;
             int y = 0;
             for (int i = 0; i < 64; i++) {
-                System.out.println("Resetting");
                 boolean reset = false;
                 blankSquares[y][x].setPressed(false);
                 if (x == 7) {
@@ -285,7 +281,6 @@ public class Main {
                 boolean reset = false;
                 if (pieces[movementCoords[0]][movementCoords[1]].getClass() != Pawn.class){
                     if (blankSquares[l][m].isPressed()) {
-                        System.out.println("Press detected 2nd stagem");
                         blankSquares[l][m].setPressed(false);
                         movementCoords[2] = l;
                         movementCoords[3] = m;
@@ -293,17 +288,17 @@ public class Main {
                         int xOne = movementCoords[1];
                         if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares())) {
                             squarePressed = true;
-                            System.out.println("Valid Normal Move");
                         }
                     }
 
                 } else if (pieces[movementCoords[0]][movementCoords[1]].getClass() == Pawn.class) {
-                    System.out.println("Pawn Detected");
-                    System.out.println(checkLeftDiagonal(movementCoords,pieces) + " Left Diagonal Check");
-                    System.out.println(checkRightDiagonal(movementCoords,pieces) + " Right Diagonal Check");
-                    System.out.println(checkFront(movementCoords,pieces) + " Front Check");
+                    for (int number:movementCoords){
+                        System.out.println(number);
+                    }
+                    System.out.println(checkLeftDiagonal(movementCoords,pieces,board) + " Left Diagonal Check");
+                    System.out.println(checkRightDiagonal(movementCoords,pieces,board) + " Right Diagonal Check");
 
-                    if (!checkLeftDiagonal(movementCoords,pieces) && !checkRightDiagonal(movementCoords,pieces) && !checkFront(movementCoords,pieces)) {
+                    if (!checkLeftDiagonal(movementCoords,pieces,board) && !checkRightDiagonal(movementCoords,pieces,board) && !checkFront(movementCoords,pieces)) {
                         if (blankSquares[l][m].isPressed()) {
                             blankSquares[l][m].setPressed(false);
                             movementCoords[2] = l;
@@ -323,7 +318,7 @@ public class Main {
                             int yOne = movementCoords[0];
                             int xOne = movementCoords[1];
                             if (((Pawn)pieces[yOne][xOne]).checkTake(movementCoords, checkFront(movementCoords,pieces),
-                                    checkLeftDiagonal(movementCoords,pieces),checkRightDiagonal(movementCoords,pieces))) {
+                                    checkLeftDiagonal(movementCoords,pieces,board),checkRightDiagonal(movementCoords,pieces,board))) {
                                 squarePressed = true;
                                 System.out.println("Valid Normal Move");
                             }

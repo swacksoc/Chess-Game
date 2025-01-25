@@ -23,8 +23,9 @@ public class Castle extends Piece {
         int y2 = movementCoords[2];
         int x2 = movementCoords[3];
 
-        int opposingPieceCounter = 0;
         if (x1 == x2) {
+
+            int opposingPieceCounter = 0;
             double positiveDifferenceY1AndY2 = sqrt((y1 - y2) * (y1 - y2));
             for (int i = 0; i < positiveDifferenceY1AndY2; i++) {
                 System.out.println("LOOP CASTLE");
@@ -34,22 +35,22 @@ public class Castle extends Piece {
                     if (pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
 
                         } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece Found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     } else if (!pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     }
@@ -61,21 +62,21 @@ public class Castle extends Piece {
                     if (pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece Found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     } else if (!pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     }
@@ -91,7 +92,7 @@ public class Castle extends Piece {
             return true;
 
         } else if (y1 == y2){
-
+            int opposingPieceCounter = 0;
             double positiveDifferenceX1AndX2 = sqrt((x1 - x2) * (x1 - x2));
             for (int i = 0; i < positiveDifferenceX1AndX2; i++) {
                 System.out.println("LOOP CASTLE");
@@ -101,22 +102,22 @@ public class Castle extends Piece {
                     if (pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
 
                         } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece Found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     } else if (!pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     }
@@ -128,21 +129,23 @@ public class Castle extends Piece {
                     if (pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece Found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     } else if (!pieces[y1][x1].isOrange()) {
 
                         if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
+
                             opposingPieceCounter += 1;
 
                         } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found");
+                            System.out.println("Piece found at " + y2 +" " + x2);
                             return false;
                         }
                     }
