@@ -6,38 +6,21 @@ public class Main {
          * Checks Square in front of piece to see if it has a piece on it
          * @return true if piece false if not
          */
-        private static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
+        public static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
             int x2 = movementCoords[3];
             boolean returnVal = false;
-
-
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
-                if (y1 > 0 && y1 < 8){
-
                     if (pieces[y1-1][x1] != null){
-                        if (!pieces[y1-1][x1].isOrange()){
                             returnVal = true;
-                        }
                     }
-                }else {
-                    returnVal = false;
-                }
-
             }else {
-                if (y1 > 0 && y1 > 8){
-
                     if (pieces[y1+1][x1] != null) {
-                        if (pieces[y1 + 1][x1].isOrange()) {
                             returnVal = true;
-                        }
                     }
-                }else {
-                    returnVal = false;
-                }
             }
             return returnVal;
         }
@@ -48,23 +31,20 @@ public class Main {
          * @param pieces piece list
          * @return true if piece in
          */
-        private static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces,Board board){
+        public static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             int y2 = movementCoords[2];
             int x2 = movementCoords[3];
             boolean returnVal = false;
-            BlankSquare[][] blankSquares = board.getBlankSquares();
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
-                blankSquares[y1 - 1][x1 - 1].setColour(Color.red);
                 if (pieces[y1 - 1][x1 - 1] != null){
                     if (!pieces[y1 - 1][x1 - 1].isOrange()){
                         returnVal = true;
                     }
                 }
             }else {
-                    blankSquares[y1 + 1][x1 + 1].setColour(Color.red);
                     if (pieces[y1 + 1][x1 + 1] != null){
                         if (pieces[y1 + 1][x1 + 1].isOrange()){
                             returnVal = true;
@@ -80,14 +60,12 @@ public class Main {
          * @param pieces piece list
          * @return true if piece false if not
          */
-        private static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces,Board board){
+        public static boolean checkRightDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
             boolean returnVal = false;
-            BlankSquare[][] blankSquares = board.getBlankSquares();
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()) {
-                blankSquares[y1 - 1][x1 + 1].setColour(Color.PINK);
                 if (y1 > 0 && x1 < 7){
                     if (pieces[y1 - 1][x1 + 1] != null){
                         if (!pieces[y1 - 1][x1 + 1].isOrange()) {
@@ -98,7 +76,6 @@ public class Main {
                     returnVal = false;
                 }
             }else {
-                    blankSquares[y1 + 1][x1 - 1].setColour(Color.PINK);
                     if (pieces[y1+1][x1-1] != null){
                         if (pieces[y1+1][x1-1].isOrange()){
                             returnVal = true;
@@ -292,14 +269,10 @@ public class Main {
                     }
 
                 } else if (pieces[movementCoords[0]][movementCoords[1]].getClass() == Pawn.class) {
-                    for (int number:movementCoords){
-                        System.out.println(number);
-                    }
-                    System.out.println(checkLeftDiagonal(movementCoords,pieces,board) + " Left Diagonal Check");
-                    System.out.println(checkRightDiagonal(movementCoords,pieces,board) + " Right Diagonal Check");
-
-                    if (!checkLeftDiagonal(movementCoords,pieces,board) && !checkRightDiagonal(movementCoords,pieces,board) && !checkFront(movementCoords,pieces)) {
-                        if (blankSquares[l][m].isPressed()) {
+                    System.out.println(checkLeftDiagonal(movementCoords,pieces) + " Left Diagonal Check");
+                    System.out.println(checkRightDiagonal(movementCoords,pieces) + " Right Diagonal Check");
+                    System.out.println(checkFront(movementCoords,pieces) + " Front Check ");
+                    if (blankSquares[l][m].isPressed()) {
                             blankSquares[l][m].setPressed(false);
                             movementCoords[2] = l;
                             movementCoords[3] = m;
@@ -309,22 +282,6 @@ public class Main {
                                 squarePressed = true;
                                 System.out.println("Valid Normal Move");
                             }
-                        }
-                    }else {
-                        if (blankSquares[l][m].isPressed()) {
-                            blankSquares[l][m].setPressed(false);
-                            movementCoords[2] = l;
-                            movementCoords[3] = m;
-                            int yOne = movementCoords[0];
-                            int xOne = movementCoords[1];
-                            if (((Pawn)pieces[yOne][xOne]).checkTake(movementCoords, checkFront(movementCoords,pieces),
-                                    checkLeftDiagonal(movementCoords,pieces,board),checkRightDiagonal(movementCoords,pieces,board))) {
-                                squarePressed = true;
-                                System.out.println("Valid Normal Move");
-                            }
-                        }
-
-
                     }
                 }
 
