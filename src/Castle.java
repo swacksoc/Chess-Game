@@ -1,9 +1,11 @@
 import javax.swing.*;
 
 import static java.lang.Math.sqrt;
+import static java.lang.Math.subtractExact;
 
 public class Castle extends Piece {
-    public Castle(boolean isOrange) {
+    public Castle(boolean isOrange,int y,int x) {
+        super(y,x);
         setOrange(isOrange);
         setImage((new ImageIcon("src/CastleOrange.png")), (new ImageIcon("src/CastleYellow.png")));
         addMouseListener(this);

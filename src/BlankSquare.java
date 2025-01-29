@@ -7,7 +7,8 @@ public class BlankSquare extends JPanel implements MouseListener {
     private boolean pressed = false;
     private boolean multiplePieces =false;
     private boolean isBlack = false;
-    BlankSquare(Color colour){
+    private Pair coordinates;
+    public BlankSquare(Color colour){
         setVisible(true);
         setOpaque(true);
         setColour(colour);
@@ -39,6 +40,12 @@ public class BlankSquare extends JPanel implements MouseListener {
     }
     public void setPressed(boolean pressed) {
         this.pressed = pressed;
+    }
+    public Pair setCoordinates(int y,int x){
+        return new Pair(y,x);
+    }
+    public Pair getCoordinates(){
+        return coordinates;
     }
     /**
      * Invoked when the mouse button has been clicked (pressed

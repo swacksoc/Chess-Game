@@ -1,7 +1,8 @@
 import javax.swing.*;
 
 public class King extends Piece {
-    public King(boolean isOrange) {
+    public King(boolean isOrange,int y,int x) {
+        super(y,x);
         setOrange(isOrange);
         setImage((new ImageIcon("src/KingOrange.png")), (new ImageIcon("src/KingYellow.png")));
         addMouseListener(this);

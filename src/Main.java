@@ -1,7 +1,64 @@
 import java.awt.*;
 import java.lang.reflect.Array;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Main {
+    /**
+     * Traverses board in a certain direction to calculate where pieces can move
+     * @param startingY Y of the piece
+     * @param startingX X of the piece
+     * @param yMovement y direction of collision checking
+     * @param xMovement x direction of collision checking
+     * @param pieces Array of all pieces
+     * @return Arraylist<Pair> all possible moves along this line
+     */
+        public static ArrayList<Pair> traversal(int startingY,int startingX,int yMovement,int xMovement,Piece[][] pieces){
+            int currentX = startingX;
+            int currentY = startingY;
+            currentX += xMovement;
+            currentY += yMovement;
+            boolean collision = false;
+            ArrayList<Pair> validMoves = new ArrayList<>();
+            int opposingPieceCounter= 0;
+            while ((currentX >= 0 && currentX <= 7) && (currentY >= 0 && currentY <= 7) && !collision){
+                if (pieces[startingY][startingX].isOrange()){
+
+                    if(pieces[currentY][currentX] != null && pieces[currentY][currentX].isOrange()){
+                        collision = true;
+                    }else if (pieces[currentY][currentX] != null && !pieces[currentY][currentX].isOrange() && opposingPieceCounter < 1){
+                        opposingPieceCounter++;
+                        validMoves.add(new Pair(currentY,currentX));
+                    } else if (opposingPieceCounter >= 1) {
+                        collision = true;
+                    }else {
+                        validMoves.add(new Pair(currentY,currentX));
+                    }
+
+
+
+                } else if (!pieces[startingY][startingX].isOrange()) {
+                    if(pieces[currentY][currentX] != null && !pieces[currentY][currentX].isOrange()){
+                        collision = true;
+                    }else if (pieces[currentY][currentX] != null && pieces[currentY][currentX].isOrange() && opposingPieceCounter < 1){
+                        opposingPieceCounter++;
+                        validMoves.add(new Pair(currentY,currentX));
+                    } else if (opposingPieceCounter >= 1) {
+                        collision = true;
+                    }else {
+                        validMoves.add(new Pair(currentY,currentX));
+                    }
+                }
+
+                System.out.println(currentX + " Current X" + " " + currentY + " Current Y");
+                currentX += xMovement;
+                currentY += yMovement;
+            }
+            return validMoves;
+
+        }
         /**
          * Checks Square in front of piece to see if it has a piece on it
          * @return true if piece false if not
@@ -14,13 +71,19 @@ public class Main {
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
+
+                if (((y1 - 1 >= 0) && (y1 - 1 <= 7))){
                     if (pieces[y1-1][x1] != null){
-                            returnVal = true;
+                        returnVal = true;
                     }
+                }
             }else {
-                    if (pieces[y1+1][x1] != null) {
-                            returnVal = true;
+
+                if (((y1 + 1 >= 0) && (y1 + 1 <= 7))) {
+                    if (pieces[y1 + 1][x1] != null) {
+                        returnVal = true;
                     }
+                }
             }
             return returnVal;
         }
@@ -39,15 +102,19 @@ public class Main {
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
-                if (pieces[y1 - 1][x1 - 1] != null){
-                    if (!pieces[y1 - 1][x1 - 1].isOrange()){
-                        returnVal = true;
+                if ((y1 - 1 <= 7 && y1 - 1 >= 0) && (x1 - 1 <= 7 && x1 - 1 >= 0)) {
+                    if (pieces[y1 - 1][x1 - 1] != null) {
+                        if (!pieces[y1 - 1][x1 - 1].isOrange()) {
+                            returnVal = true;
+                        }
                     }
                 }
             }else {
-                    if (pieces[y1 + 1][x1 + 1] != null){
-                        if (pieces[y1 + 1][x1 + 1].isOrange()){
-                            returnVal = true;
+                    if ((y1 + 1 <= 7 && y1 + 1 >= 0) && (x1 + 1 <= 7 && x1 + 1 >= 0)){
+                        if (pieces[y1 + 1][x1 + 1] != null){
+                            if (pieces[y1 + 1][x1 + 1].isOrange()){
+                                returnVal = true;
+                            }
                         }
                     }
             }
@@ -66,7 +133,7 @@ public class Main {
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()) {
-                if (y1 > 0 && x1 < 7){
+                if ((y1 - 1 >= 0 && y1 - 1 >= 7) && (x1 + 1 >= 0) && (x1 + 1 >= 7)){
                     if (pieces[y1 - 1][x1 + 1] != null){
                         if (!pieces[y1 - 1][x1 + 1].isOrange()) {
                             returnVal = true;
@@ -76,6 +143,7 @@ public class Main {
                     returnVal = false;
                 }
             }else {
+                if (((y1 + 1 >= 0) && (y1 + 1 <= 7)) && ((x1 - 1 >= 0) && (x1 - 1 >= 7)))
                     if (pieces[y1+1][x1-1] != null){
                         if (pieces[y1+1][x1-1].isOrange()){
                             returnVal = true;

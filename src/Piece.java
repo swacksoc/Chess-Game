@@ -6,6 +6,11 @@ abstract class Piece extends JLabel implements MouseListener {
     private boolean isOrange;
     private boolean pressed;
     private boolean disableCheckMovement;
+    private Pair coordinates;
+
+    protected Piece(int y, int x){
+        this.coordinates = new Pair(y,x);
+    }
     public boolean isPressed() {
         return pressed;
     }
@@ -96,15 +101,14 @@ abstract class Piece extends JLabel implements MouseListener {
         this.disableCheckMovement = disableCheckMovement;
     }
 
-    public boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares){
-        System.out.println("Inherited Check");
-        return true;
+    public abstract boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares);
 
-
-
+    public Pair getCoordinates() {
+        return coordinates;
     }
-
-
+    public void setCoordinates(int y,int x){
+        this.coordinates = new Pair(y,x);
+    }
 }
 
 

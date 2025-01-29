@@ -79,6 +79,7 @@ public class Board extends JFrame {
             }
 
             add(blankSquares[j][k]);
+            blankSquares[j][k].setCoordinates(j,k);
 
 
             if (k == 7 && j != 7) {
@@ -99,36 +100,36 @@ public class Board extends JFrame {
     public void createPieces() {
         //Adding Pawns
         for (int i = 0; i <= 7; i++) {
-            pieces[1][i] = new Pawn(false);
-            pieces[6][i] = new Pawn(true);
+            pieces[1][i] = new Pawn(false,1,0);
+            pieces[6][i] = new Pawn(true,6,i);
+
         }
 
         //Adding Castles
-        pieces[0][0] = new Castle(false);
-        pieces[0][7] = new Castle(false);
-        pieces[7][0] = new Castle(true);
-        pieces[7][7] = new Castle(true);
-
+        pieces[0][0] = new Castle(false,0,0);
+        pieces[0][7] = new Castle(false,0,7);
+        pieces[7][0] = new Castle(true,7,0);
+        pieces[7][7] = new Castle(true,7,7);
         //Adding Kings
-        pieces[0][4] = new King(false);
-        pieces[7][4] = new King(true);
+        pieces[0][4] = new King(false,0,4);
+        pieces[7][4] = new King(true,7,4);
 
 
         //Adding Queens
-        pieces[0][3] = new Queen(false);
-        pieces[7][3] = new Queen(true);
+        pieces[0][3] = new Queen(false,0,3);
+        pieces[7][3] = new Queen(true,7,3);
 
         //Adding Bishops
-        pieces[0][2] = new Bishop(false);
-        pieces[0][5] = new Bishop(false);
-        pieces[7][2] = new Bishop(true);
-        pieces[7][5] = new Bishop(true);
+        pieces[0][2] = new Bishop(false,0,2);
+        pieces[0][5] = new Bishop(false,0,5);
+        pieces[7][2] = new Bishop(true,7,2);
+        pieces[7][5] = new Bishop(true,7,5);
 
         //Adding Rooks
-        pieces[0][1] = new Knight(false);
-        pieces[0][6] = new Knight(false);
-        pieces[7][1] = new Knight(true);
-        pieces[7][6] = new Knight(true);
+        pieces[0][1] = new Knight(false,0,1);
+        pieces[0][6] = new Knight(false,0,6);
+        pieces[7][1] = new Knight(true,7,1);
+        pieces[7][6] = new Knight(true,7,6);
 
 
         }
@@ -163,10 +164,6 @@ public class Board extends JFrame {
      * Move pieces method
       */
     public void movePieces(int[] coordsArray){
-        System.out.println("MOVING");
-        for (int number: coordsArray){
-            System.out.println(number);
-        }
         System.out.println("Moving Pieces Start");
         int yCoordOne = coordsArray[0];
         int yCoordTwo = coordsArray[2];
@@ -174,6 +171,7 @@ public class Board extends JFrame {
         int xCoordTwo = coordsArray[3];
 
         Piece temp = pieces[yCoordOne][xCoordOne];
+        temp.setCoordinates(yCoordTwo,xCoordTwo);
         pieces[yCoordOne][xCoordOne] = null;
         pieces[yCoordTwo][xCoordTwo] = temp;
         addPiecesToScreen();

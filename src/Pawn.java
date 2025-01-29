@@ -2,7 +2,8 @@ import javax.swing.*;
 
 public class Pawn extends Piece {
     private boolean firstTurn = true;
-    public Pawn(boolean isOrange) {
+    public Pawn(boolean isOrange,int y,int x) {
+        super(y,x);
         setOrange(isOrange);
         setImage((new ImageIcon("src/PawnOrange.png")), new ImageIcon("src/PawnYellow.png"));
         addMouseListener(this);
