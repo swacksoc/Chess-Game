@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import static java.lang.Math.sqrt;
 import static java.lang.Math.subtractExact;
 
@@ -25,143 +28,23 @@ public class Castle extends Piece {
         int y2 = movementCoords[2];
         int x2 = movementCoords[3];
 
-        if (x1 == x2) {
+        ArrayList<Pair> verticalMovesOne = Main.traversal(y1,x1,1,0,pieces);
+        ArrayList<Pair> verticalMovesTwo = Main.traversal(y1,x1,-1,0,pieces);
+        ArrayList<Pair> horizontalMovesOne = Main.traversal(y1,x1,0,-1,pieces);
+        ArrayList<Pair> horizontalMovesTwo = Main.traversal(y1,x1,0,1,pieces);
 
-            int opposingPieceCounter = 0;
-            double positiveDifferenceY1AndY2 = sqrt((y1 - y2) * (y1 - y2));
-            for (int i = 0; i < positiveDifferenceY1AndY2; i++) {
-                System.out.println("LOOP CASTLE");
+        ArrayList<Pair> validMoves = new ArrayList<>(verticalMovesOne);
+        validMoves.addAll(verticalMovesTwo);
+        validMoves.addAll(horizontalMovesOne);
+        validMoves.addAll(horizontalMovesTwo);
 
-                if (y1 - y2 < 0) {
-                    System.out.println("1");
-                    if (pieces[y1][x1].isOrange()) {
+        ArrayList<Pair> validMovesSearch = validMoves.stream()
+                .filter(x -> x.equals(new Pair(y2,x2)))
+                .collect(Collectors.toCollection(ArrayList<Pair>::new));
+        System.out.println(validMovesSearch.size() + "LIST SIZE");
 
-                        if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-
-                        } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    } else if (!pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    }
-
-                    y2 -= 1;
-                } else if (y1 - y2 > 0) {
-                    System.out.println("2");
-
-                    if (pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    } else if (!pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    }
-                    y2 += 1;
-                }
-
-
-                if (opposingPieceCounter >= 2) {
-                    return false;
-                }
-            }
-
+        if (validMovesSearch.size() >= 1){
             return true;
-
-        } else if (y1 == y2){
-            int opposingPieceCounter = 0;
-            double positiveDifferenceX1AndX2 = sqrt((x1 - x2) * (x1 - x2));
-            for (int i = 0; i < positiveDifferenceX1AndX2; i++) {
-                System.out.println("LOOP CASTLE");
-
-                if (x1 - x2 < 0) {
-                    System.out.println("1");
-                    if (pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-
-                        } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    } else if (!pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    }
-
-                    x2 -= 1;
-                } else if (x1 - x2 > 0) {
-                    System.out.println("2");
-
-                    if (pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    } else if (!pieces[y1][x1].isOrange()) {
-
-                        if (pieces[y2][x2] != null && pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-
-                            opposingPieceCounter += 1;
-
-                        } else if (pieces[y2][x2] != null && !pieces[y2][x2].isOrange()) {
-                            System.out.println("Piece found at " + y2 +" " + x2);
-                            return false;
-                        }
-                    }
-                    x2 += 1;
-                }
-
-
-                if (opposingPieceCounter >= 2) {
-                    return false;
-                }
-            }
-
-            return true;
-
         }else {
             return false;
         }
