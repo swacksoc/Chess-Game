@@ -26,6 +26,7 @@ public class Bishop extends Piece {
         int y2 = movementCoords[2];
         int x2 = movementCoords[3];
 
+        //Gets all list of all possible valid moves and then searches to find if any input coordinates are the same
         ArrayList<Pair> diagonalMovesOne = Main.traversal(y1,x1,1,1,pieces);
         ArrayList<Pair> diagonalMovesTwo = Main.traversal(y1,x1,1,-1,pieces);
         ArrayList<Pair> diagonalMovesThree = Main.traversal(y1,x1,-1,1,pieces);

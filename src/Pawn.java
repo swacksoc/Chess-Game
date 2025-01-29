@@ -25,6 +25,10 @@ public class Pawn extends Piece {
         int y1 = movementCoords[1];
         int x2 = movementCoords[2];
         int y2 = movementCoords[3];
+        System.out.println("MOVEMENT COORDS PAWN");
+        for (int elem : movementCoords){
+            System.out.println(elem);
+        }
         if(isFirstTurn()){
             firstTurn = false;
             System.out.println("Pawn Check First Turn");

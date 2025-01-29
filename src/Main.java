@@ -154,6 +154,28 @@ public class Main {
         }
 
         /**
+        *Counts number of possible moves from a piece
+        * @param blankSquares
+        * @param movementCoords
+        * @param piece
+        * @param pieces
+        */
+        private static long countPossibleMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece,Piece[][] pieces) {
+            int y1 = movementCoords[0];
+            int x1 = movementCoords[1];
+            //apply checkMovement to all squares
+            Boolean[] checkMovementResults =
+                    Arrays.stream(blankSquares)
+                    .flatMap(Arrays::stream)
+                    .map(x->piece.checkMovement(new int[]{y1, x1,x.getCoordinates().getY(),x.getCoordinates().getX()},pieces,blankSquares)).toArray(Boolean[]::new);
+            //returns count of all which are true
+            long count = Arrays.stream(checkMovementResults).filter(x -> x == true).count();
+            System.out.println(count + " COUNT ");
+            return  Arrays.stream(checkMovementResults).filter(x -> x == true).count();
+        }
+
+
+        /**
          * Finds squares to turn red
          * @param blankSquares BlankSquare list of all coordinates on board
          * @param movementCoords Int [] movementCoords of piece
@@ -322,7 +344,7 @@ public class Main {
             boolean squarePressed = false;
             int l = 0;
             int m = 0;
-            while (!squarePressed) {
+            while (!squarePressed && countPossibleMoves(blankSquares,movementCoords,pieces[movementCoords[0]][movementCoords[1]],pieces) > 0) {
                 boolean reset = false;
                 if (pieces[movementCoords[0]][movementCoords[1]].getClass() != Pawn.class){
                     if (blankSquares[l][m].isPressed()) {
@@ -389,9 +411,12 @@ public class Main {
 
             }
             //Checks if multiple pieces on same square
-            board.movePieces(movementCoords);
+            if (countPossibleMoves(blankSquares,movementCoords,pieces[movementCoords[0]][movementCoords[1]],pieces) > 0){
+                board.movePieces(movementCoords);
+                turn++;
+            }
             System.out.println("Moved");
-            turn++;
+
             System.out.println(turn + " turn");
 
 

@@ -28,6 +28,7 @@ public class Castle extends Piece {
         int y2 = movementCoords[2];
         int x2 = movementCoords[3];
 
+        //Gets all list of all possible valid moves and then searches to find if any input coordinates are the same
         ArrayList<Pair> verticalMovesOne = Main.traversal(y1,x1,1,0,pieces);
         ArrayList<Pair> verticalMovesTwo = Main.traversal(y1,x1,-1,0,pieces);
         ArrayList<Pair> horizontalMovesOne = Main.traversal(y1,x1,0,-1,pieces);

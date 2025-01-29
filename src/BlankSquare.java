@@ -41,8 +41,8 @@ public class BlankSquare extends JPanel implements MouseListener {
     public void setPressed(boolean pressed) {
         this.pressed = pressed;
     }
-    public Pair setCoordinates(int y,int x){
-        return new Pair(y,x);
+    public void setCoordinates(int y,int x){
+        this.coordinates = new Pair(y,x);
     }
     public Pair getCoordinates(){
         return coordinates;
