@@ -1,6 +1,5 @@
+import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -231,7 +230,37 @@ public class Main {
                 }
                 kReset = false;
             }
+
         }
+
+    /**
+     * checks whether either side has won
+     * @param pieces All Pieces on board
+     * @return 0 if no one has won , 1 if orange has won,2 if yellow has won
+     */
+    private static int winCheck(Piece[][] pieces){
+            Stream<Piece> checkWin = Arrays.stream(pieces)
+                    .flatMap(Arrays::stream)
+                    .filter(x -> x instanceof King);
+
+
+            Piece[] checkWinArray = checkWin.toArray(Piece[]:: new);
+            int output = 0;
+            if (checkWinArray.length < 2){
+                for (int i = 0; i < checkWinArray.length; i++) {
+                    if (!checkWinArray[i].isOrange()){
+                        System.out.println("Yellow Wins");
+                        output = 1;
+                    } else if (checkWinArray[i].isOrange()) {
+                        System.out.println("Orange Wins");
+                        output = 2;
+                    }
+                }
+            }
+            return output;
+        }
+
+
     public static void main(String[] args) {
         Board board = new Board("Chess Game", 1000, 1000);
 
@@ -414,6 +443,24 @@ public class Main {
             if (countPossibleMoves(blankSquares,movementCoords,pieces[movementCoords[0]][movementCoords[1]],pieces) > 0){
                 board.movePieces(movementCoords);
                 turn++;
+            }
+            int winCheck = winCheck(pieces);
+            System.out.println(winCheck + "  WIN CHECK");
+            switch (winCheck){
+                case 0:
+                    break;
+                case 1:
+                    JFrame yellowWinScreen = new JFrame("Yellow Wins");
+                    yellowWinScreen.pack();
+                    yellowWinScreen.setVisible(true);
+                    break;
+                case 2:
+                    JFrame orangeWinScreen  = new JFrame("Orange Wins");
+                    orangeWinScreen.pack();
+                    orangeWinScreen.setVisible(true);
+
+                    break;
+
             }
             System.out.println("Moved");
 
