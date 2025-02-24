@@ -101,7 +101,7 @@ abstract class Piece extends JLabel implements MouseListener {
         this.disableCheckMovement = disableCheckMovement;
     }
 
-    public abstract boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares);
+    public abstract boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck);
 
     public Pair getCoordinates() {
         return coordinates;

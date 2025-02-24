@@ -8,10 +8,6 @@ public class Board extends JFrame {
     private final BlankSquare [][] blankSquares = new BlankSquare[8][8];
     private final Piece [][] pieces = new Piece[8][8];
 
-    /**
-     * Gets all pieces on the board
-     * @return 2-dimensional list of all pieces on board
-     */
     public Piece[][] getPieces(){
         return pieces;
     }
@@ -19,15 +15,6 @@ public class Board extends JFrame {
         return blankSquares;
     }
 
-    /**
-     *Gets a specificied piece from board
-     * @param width x axis of piece in 2 dimensional pieces array
-     * @param height y axis of piece in 2 dimensional pieces array
-     * @return Piece
-     */
-    public Piece getPiece(int width , int height){
-        return pieces[width][height];
-    }
     /**
      * Constructor for the Board Class
      * @param title  Window Title
@@ -166,8 +153,8 @@ public class Board extends JFrame {
     public void movePieces(int[] coordsArray){
         System.out.println("Moving Pieces Start");
         int yCoordOne = coordsArray[0];
-        int yCoordTwo = coordsArray[2];
         int xCoordOne = coordsArray[1];
+        int yCoordTwo = coordsArray[2];
         int xCoordTwo = coordsArray[3];
 
         Piece temp = pieces[yCoordOne][xCoordOne];

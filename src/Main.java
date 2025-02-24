@@ -39,14 +39,15 @@ public class Main {
 
 
                 } else if (!pieces[startingY][startingX].isOrange()) {
+
                     if(pieces[currentY][currentX] != null && !pieces[currentY][currentX].isOrange()){
                         collision = true;
-                    }else if (pieces[currentY][currentX] != null && pieces[currentY][currentX].isOrange() && opposingPieceCounter < 1){
+                    } else if (pieces[currentY][currentX] != null && pieces[currentY][currentX].isOrange() && opposingPieceCounter < 1){
                         opposingPieceCounter++;
                         validMoves.add(new Pair(currentY,currentX));
                     } else if (opposingPieceCounter >= 1) {
                         collision = true;
-                    }else {
+                    } else {
                         validMoves.add(new Pair(currentY,currentX));
                     }
                 }
@@ -65,14 +66,13 @@ public class Main {
         public static boolean checkFront(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
-            int y2 = movementCoords[2];
-            int x2 = movementCoords[3];
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
 
                 if (((y1 - 1 >= 0) && (y1 - 1 <= 7))){
-                    if (pieces[y1-1][x1] != null){
+                    if (pieces[y1 - 1][x1] != null){
+                        System.out.println("FRONT DETECTED");
                         returnVal = true;
                     }
                 }
@@ -80,6 +80,7 @@ public class Main {
 
                 if (((y1 + 1 >= 0) && (y1 + 1 <= 7))) {
                     if (pieces[y1 + 1][x1] != null) {
+                        System.out.println("FRONT DETECTED");
                         returnVal = true;
                     }
                 }
@@ -96,8 +97,6 @@ public class Main {
         public static boolean checkLeftDiagonal(int [] movementCoords ,Piece[][] pieces){
             int y1 = movementCoords[0];
             int x1 = movementCoords[1];
-            int y2 = movementCoords[2];
-            int x2 = movementCoords[3];
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
             if (pieces[y1][x1].isOrange()){
@@ -131,20 +130,21 @@ public class Main {
             int x1 = movementCoords[1];
             boolean returnVal = false;
             //Each one is for pieces at different side of the board
+
             if (pieces[y1][x1].isOrange()) {
-                if ((y1 - 1 >= 0 && y1 - 1 >= 7) && (x1 + 1 >= 0) && (x1 + 1 >= 7)){
+                System.out.println("F TRIGGERED " + " Y1 " + y1  + " X1 " + x1);
+                if ((y1 - 1 >= 0 && y1 - 1 <= 7) && (x1 + 1 >= 0) && (x1 + 1 <= 7)){
+                    System.out.println("Boundary passed");
                     if (pieces[y1 - 1][x1 + 1] != null){
                         if (!pieces[y1 - 1][x1 + 1].isOrange()) {
                             returnVal = true;
                         }
                     }
-                }else {
-                    returnVal = false;
                 }
             }else {
-                if (((y1 + 1 >= 0) && (y1 + 1 <= 7)) && ((x1 - 1 >= 0) && (x1 - 1 >= 7)))
-                    if (pieces[y1+1][x1-1] != null){
-                        if (pieces[y1+1][x1-1].isOrange()){
+                if (((y1 + 1 >= 0) && (y1 + 1 <= 7)) && ((x1 - 1 >= 0) && (x1 - 1 <= 7)))
+                    if (pieces[y1 + 1][x1 - 1] != null){
+                        if (pieces[y1 + 1][x1 - 1].isOrange()){
                             returnVal = true;
                         }
                     }
@@ -166,7 +166,8 @@ public class Main {
             Boolean[] checkMovementResults =
                     Arrays.stream(blankSquares)
                     .flatMap(Arrays::stream)
-                    .map(x->piece.checkMovement(new int[]{y1, x1,x.getCoordinates().getY(),x.getCoordinates().getX()},pieces,blankSquares)).toArray(Boolean[]::new);
+                    .map(x->piece.checkMovement(new int[]{y1, x1,x.getCoordinates().getY(),x.getCoordinates().getX()},
+                            pieces,blankSquares,true)).toArray(Boolean[]::new);
             //returns count of all which are true
             long count = Arrays.stream(checkMovementResults).filter(x -> x == true).count();
             System.out.println(count + " COUNT ");
@@ -179,7 +180,7 @@ public class Main {
          * @param blankSquares BlankSquare list of all coordinates on board
          * @param movementCoords Int [] movementCoords of piece
          * @param piece
-         * @return
+         *
          */
         private static void displayPieceMoves(BlankSquare[][] blankSquares,int[] movementCoords,Piece piece,Piece[][] pieces) {
             System.out.println("NEW DISPLAY");
@@ -190,30 +191,31 @@ public class Main {
             for (int i = 0; i < 64; i++) {
                 movementCoords[2] = j;
                 movementCoords[3] = k;
-                System.out.println("X " + k + " Y " + j);
-                //This is to stop it from highlighting pieces of same colour as the current piece but also make sur eit highlights enemy pieces as possible moves
-                if (piece.checkMovement(movementCoords,pieces,blankSquares)) {
+                System.out.println(" DISPLAY COORDS X2 " + k + " Y2 " + j);
+                //This is to stop it from highlighting pieces of same colour as the current piece but also make sure it highlights enemy pieces as possible moves
+
+                if (piece.checkMovement(movementCoords,pieces,blankSquares,true)) {
                     System.out.println("CHECK MOVEMENT TRUE");
-                    if (blankSquares[j][k].getComponentCount() == 1){
-                        Component[] Components = blankSquares[j][k].getComponents();
+                    if (blankSquares[movementCoords[2]][movementCoords[3]].getComponentCount() == 1){
+                        Component[] Components = blankSquares[movementCoords[2]][movementCoords[3]].getComponents();
                         if (Components[0] instanceof Piece){
                             if (piece.isOrange()){
                                 if (!((Piece) Components[0]).isOrange()){
-                                    blankSquares[j][k].setColour(Color.GREEN);
-                                    blankSquares[j][k].repaint();
+                                    blankSquares[movementCoords[2]][movementCoords[3]].setColour(Color.GREEN);
+                                    blankSquares[movementCoords[2]][movementCoords[3]].repaint();
                                     
                                 }
                             } else if (!piece.isOrange()) {
                                 if (((Piece) Components[0]).isOrange()){
-                                    blankSquares[j][k].setColour(Color.GREEN);
-                                    blankSquares[j][k].repaint();
+                                    blankSquares[movementCoords[2]][movementCoords[3]].setColour(Color.GREEN);
+                                    blankSquares[movementCoords[2]][movementCoords[3]].repaint();
                                 }
                             }
                         }
 
                     }else {
-                        blankSquares[j][k].setColour(Color.GREEN);
-                        blankSquares[j][k].repaint();
+                        blankSquares[movementCoords[2]][movementCoords[3]].setColour(Color.GREEN);
+                        blankSquares[movementCoords[2]][movementCoords[3]].repaint();
                         
                     }
                 }
@@ -243,8 +245,8 @@ public class Main {
                     .flatMap(Arrays::stream)
                     .filter(x -> x instanceof King);
 
-
             Piece[] checkWinArray = checkWin.toArray(Piece[]:: new);
+
             int output = 0;
             if (checkWinArray.length < 2){
                 for (int i = 0; i < checkWinArray.length; i++) {
@@ -373,36 +375,19 @@ public class Main {
             boolean squarePressed = false;
             int l = 0;
             int m = 0;
-            while (!squarePressed && countPossibleMoves(blankSquares,movementCoords,pieces[movementCoords[0]][movementCoords[1]],pieces) > 0) {
+            while (!squarePressed) {
                 boolean reset = false;
-                if (pieces[movementCoords[0]][movementCoords[1]].getClass() != Pawn.class){
-                    if (blankSquares[l][m].isPressed()) {
-                        blankSquares[l][m].setPressed(false);
-                        movementCoords[2] = l;
-                        movementCoords[3] = m;
+                if (blankSquares[m][l].isPressed()) {
+                        blankSquares[m][l].setPressed(false);
+                        movementCoords[2] = m;
+                        movementCoords[3] = l;
                         int yOne = movementCoords[0];
                         int xOne = movementCoords[1];
-                        if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares())) {
+                        if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares(),false)) {
                             squarePressed = true;
                         }
-                    }
-
-                } else if (pieces[movementCoords[0]][movementCoords[1]].getClass() == Pawn.class) {
-                    System.out.println(checkLeftDiagonal(movementCoords,pieces) + " Left Diagonal Check");
-                    System.out.println(checkRightDiagonal(movementCoords,pieces) + " Right Diagonal Check");
-                    System.out.println(checkFront(movementCoords,pieces) + " Front Check ");
-                    if (blankSquares[l][m].isPressed()) {
-                            blankSquares[l][m].setPressed(false);
-                            movementCoords[2] = l;
-                            movementCoords[3] = m;
-                            int yOne = movementCoords[0];
-                            int xOne = movementCoords[1];
-                            if (pieces[yOne][xOne].checkMovement(movementCoords,pieces, board.getBlankSquares())) {
-                                squarePressed = true;
-                                System.out.println("Valid Normal Move");
-                            }
-                    }
                 }
+
 
                 if (l == 7) {
                     m++;
@@ -423,10 +408,10 @@ public class Main {
             int b  = 0;
             for (int i = 0; i < 64; i++) {
                 boolean reset = false;
-                if (blankSquares[a][b].isBlack()){
-                    blankSquares[a][b].setColour(Color.black);
+                if (blankSquares[b][a].isBlack()){
+                    blankSquares[b][a].setColour(Color.black);
                 }else {
-                    blankSquares[a][b].setColour(Color.white);
+                    blankSquares[b][a].setColour(Color.white);
                 }
 
                 if (a == 7) {
@@ -439,11 +424,8 @@ public class Main {
                 }
 
             }
-            //Checks if multiple pieces on same square
-            if (countPossibleMoves(blankSquares,movementCoords,pieces[movementCoords[0]][movementCoords[1]],pieces) > 0){
-                board.movePieces(movementCoords);
-                turn++;
-            }
+            board.movePieces(movementCoords);
+            turn++;
             int winCheck = winCheck(pieces);
             System.out.println(winCheck + "  WIN CHECK");
             switch (winCheck){
@@ -458,7 +440,6 @@ public class Main {
                     JFrame orangeWinScreen  = new JFrame("Orange Wins");
                     orangeWinScreen.pack();
                     orangeWinScreen.setVisible(true);
-
                     break;
 
             }

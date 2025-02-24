@@ -19,67 +19,108 @@ public class Pawn extends Piece {
      * @return True if within rules false if not
      */
     @Override
-    public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares) {
+    public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck) {
 
-        int x1 = movementCoords[0];
-        int y1 = movementCoords[1];
-        int x2 = movementCoords[2];
-        int y2 = movementCoords[3];
-        System.out.println("MOVEMENT COORDS PAWN");
-        for (int elem : movementCoords){
-            System.out.println(elem);
-        }
+        int y1 = movementCoords[0];
+        int x1 = movementCoords[1];
+        int y2 = movementCoords[2];
+        int x2 = movementCoords[3];
+
+        //First Turn
         if(isFirstTurn()){
-            firstTurn = false;
-            System.out.println("Pawn Check First Turn");
             if (!isOrange()) {
-                if (y1 == y2
-                        && ((x2 - x1 == 1 && x2 > x1) ||(x2 - x1 == 2 && x2 > x1))) {
-                    return true;
-                }
-            } else if (isOrange()) {
-                if (y1 == y2 && (x2 - x1 == -1 && x2 < x1 ||(x2 - x1 == -2 && x1 > x2))) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            System.out.println("Pawn Check");
-            if (!isOrange()) {
-                if (y1 == y2 && (x2 - x1 == 1 && x2 > x1) && !Main.checkFront(movementCoords,pieces)){
+                if ((x1 == x2) && (y1 + 1 == y2|| y1 + 2 == y2) && !Main.checkFront(movementCoords,pieces)){
+                    if (!visualCheck){
+                        firstTurn = false;
+                    }
                     return true;
                 }
                 if (Main.checkLeftDiagonal(movementCoords,pieces)){
+                    System.out.println("left diagonal true");
                     if (x2 == x1 + 1 && y2 == y1 + 1){
                         return true;
                     }
                 }
+
                 if (Main.checkRightDiagonal(movementCoords,pieces)){
-                    if (x2 == x1 + 1 && y2 == y1 - 1){
+                    System.out.println("right diagonal true");
+                    if (x2 == x1 - 1 && y2 == y1 + 1){
                         return true;
                     }
                 }
 
             } else if (isOrange()) {
-                if (y1 == y2 && (x2 - x1 == -1 && x2 < x1) && !Main.checkFront(movementCoords,pieces)){
+                if ((x1 == x2) && (y1 -1 == y2 || y1 - 2 == y2) && !Main.checkFront(movementCoords,pieces)) {
+                    if (!visualCheck){
+                        firstTurn = false;
+                    }
                     return true;
                 }
+
                 if (Main.checkLeftDiagonal(movementCoords,pieces)){
                     if (x2 == x1 - 1 && y2 == y1 - 1){
+                        System.out.println("left diagonal true");
                         return true;
                     }
                 }
-                if (Main.checkRightDiagonal(movementCoords,pieces)){
-                    if (x2 == x1 - 1 && y2 == y1 + 1){
 
+                if (Main.checkRightDiagonal(movementCoords,pieces)){
+                    System.out.println("right diagonal true");
+                    if (x2 == x1 + 1 && y2 == y1 - 1){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } else {
+            if (!isOrange()) {
+
+                if ((x1 == x2 && y1 + 1 == y2) && !Main.checkFront(movementCoords,pieces)){
+                    return true;
+                }
+
+                if (Main.checkLeftDiagonal(movementCoords,pieces)){
+                    System.out.println("left diagonal true");
+                    if (x2 == x1 + 1 && y2 == y1 + 1){
+                        return true;
+                    }
+                }
+
+                if (Main.checkRightDiagonal(movementCoords,pieces)){
+                    System.out.println("right diagonal true");
+                    if (x2 == x1 - 1 && y2 == y1 + 1){
+                        return true;
+                    }
+                }
+
+            } else if (isOrange()) {
+
+
+                if (x1 == x2 && y1 - 1 == y2){
+                    System.out.println("normal move true Forward");
+                    return true;
+                }
+
+                if (Main.checkLeftDiagonal(movementCoords,pieces)){
+                    if (x2 == x1 - 1 && y2 == y1 - 1){
+                        System.out.println("left diagonal true");
+                        return true;
+                    }
+                }
+
+                if (Main.checkRightDiagonal(movementCoords,pieces)){
+                    System.out.println("right diagonal true");
+                    if (x2 == x1 + 1 && y2 == y1 - 1){
+                        return true;
                     }
                 }
             }
 
+
         }
-        System.out.println("False Coordinates Y " + movementCoords[2] + " X " +  movementCoords[3]);
        return false;
     }
+
 
 }
 

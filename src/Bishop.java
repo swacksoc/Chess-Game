@@ -20,7 +20,7 @@ public class Bishop extends Piece {
      * Goes through and checks movement coordinates are within the correct range and then goes through and checks if there
      * is a piece between the start and the end and if there is it returns false and stops movement past that point
      */
-    public boolean checkMovement(int[] movementCoords,Piece[][] pieces,BlankSquare[][] blankSquares) {
+    public boolean checkMovement(int[] movementCoords,Piece[][] pieces,BlankSquare[][] blankSquares,boolean visualCheck) {
         int y1 =movementCoords[0];
         int x1 = movementCoords[1];
         int y2 = movementCoords[2];

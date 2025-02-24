@@ -22,7 +22,7 @@ public class Castle extends Piece {
      * @return true if move is valid false if it is invalid
      */
     @Override
-    public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares) {
+    public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck) {
         int y1 = movementCoords[0];
         int x1 = movementCoords[1];
         int y2 = movementCoords[2];
