@@ -6,6 +6,11 @@ public class Pair {
     int x;
     int y;
 
+    /**
+     * Constructor for pair class
+     * @param y y coordinate
+     * @param x x coordinate
+     */
     public Pair(int y,int x){
         this.y = y;
         this.x = x;

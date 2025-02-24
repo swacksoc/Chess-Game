@@ -4,7 +4,7 @@ public class Knight extends Piece{
     public Knight(boolean isOrange,int y,int x){
         super(y,x);
         setOrange(isOrange);
-        setImage((new ImageIcon("src/RookOrange.png")),(new ImageIcon("src/RookYellow.png")));
+        setImage((new ImageIcon("src/Art/RookOrange.png")),(new ImageIcon("src/Art/RookYellow.png")));
         addMouseListener(this);
     }
     @Override

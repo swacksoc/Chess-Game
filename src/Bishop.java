@@ -1,17 +1,14 @@
 import javax.swing.*;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static java.lang.Math.sqrt;
 
 public class Bishop extends Piece {
     private boolean disableCheckMovement = false;
     public Bishop(boolean isOrange,int y,int x) {
         super(y,x);
         setOrange(isOrange);
-        setImage((new ImageIcon("src/BishopOrange.png")), (new ImageIcon("src/BishopYellow.png")));
+        setImage((new ImageIcon("src/Art/BishopOrange.png")), (new ImageIcon("src/Art/BishopYellow.png")));
         addMouseListener(this);
     }
 

@@ -148,10 +148,10 @@ public class Board extends JFrame {
     }
 
     /**
-     * Move pieces method
-      */
+     * Moves pieces from y1 x1 to y2 x2 on the board
+     * @param coordsArray Movement coords array representing current position and future position
+     */
     public void movePieces(int[] coordsArray){
-        System.out.println("Moving Pieces Start");
         int yCoordOne = coordsArray[0];
         int xCoordOne = coordsArray[1];
         int yCoordTwo = coordsArray[2];

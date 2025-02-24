@@ -2,10 +2,17 @@ import javax.swing.*;
 
 public class Pawn extends Piece {
     private boolean firstTurn = true;
+
+    /**
+     * Constructor Pawn Class
+     * @param isOrange boolean specifies whether pawn is orange or yellow
+     * @param y y coordinate of pawn
+     * @param x x coordinate of pawn
+     */
     public Pawn(boolean isOrange,int y,int x) {
         super(y,x);
         setOrange(isOrange);
-        setImage((new ImageIcon("src/PawnOrange.png")), new ImageIcon("src/PawnYellow.png"));
+        setImage((new ImageIcon("src/Art/PawnOrange.png")), new ImageIcon("src/Art/PawnYellow.png"));
         addMouseListener(this);
     }
 
@@ -13,11 +20,6 @@ public class Pawn extends Piece {
         return firstTurn;
     }
 
-    /**
-     * Overrides check movement command to make sure pawn can only move within rules
-     * @param movementCoords Coordinates of where pawn would move to
-     * @return True if within rules false if not
-     */
     @Override
     public boolean checkMovement(int[] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck) {
 
@@ -96,7 +98,7 @@ public class Pawn extends Piece {
             } else if (isOrange()) {
 
 
-                if (x1 == x2 && y1 - 1 == y2){
+                if (x1 == x2 && y1 - 1 == y2 && !Main.checkFront(movementCoords,pieces)){
                     System.out.println("normal move true Forward");
                     return true;
                 }

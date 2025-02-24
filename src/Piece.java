@@ -1,25 +1,35 @@
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-abstract class Piece extends JLabel implements MouseListener {
+
+public abstract class Piece extends JLabel implements MouseListener {
     private ImageIcon image;
     private boolean isOrange;
     private boolean pressed;
     private boolean disableCheckMovement;
     private Pair coordinates;
 
+    /**
+     * Constructor for piece class
+     * @param y y coordinate of piece
+     * @param x x coordinate of piece
+     */
     protected Piece(int y, int x){
         this.coordinates = new Pair(y,x);
     }
+
     public boolean isPressed() {
         return pressed;
     }
+
     public void setPressed(boolean pressed) {
         this.pressed = pressed;
     }
+
     public void setImage(ImageIcon image){
         this.image = image;
     }
+
     public boolean isOrange() {
         return isOrange;
     }
@@ -93,22 +103,20 @@ abstract class Piece extends JLabel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public boolean isDisableCheckMovement() {
-        return disableCheckMovement;
-    }
-
-    public void setDisableCheckMovement(boolean disableCheckMovement) {
-        this.disableCheckMovement = disableCheckMovement;
-    }
-
-    public abstract boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck);
-
-    public Pair getCoordinates() {
-        return coordinates;
-    }
     public void setCoordinates(int y,int x){
         this.coordinates = new Pair(y,x);
     }
+
+    /**
+     * The method which all movement coordinates are ran through and checked against a set of rules within
+     * @param movementCoords movement coordinates array
+     * @param pieces All pieces on the board
+     * @param blankSquares 2d Array of all square on the board
+     * @param visualCheck boolean which shows if the activation of checkMovement has been done by displayPieces
+     * @return true if valid move , false if invalid move
+     */
+    public abstract boolean checkMovement(int [] movementCoords, Piece[][] pieces, BlankSquare[][] blankSquares,boolean visualCheck);
+
 }
 
 

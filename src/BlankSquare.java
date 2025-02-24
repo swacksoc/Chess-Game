@@ -8,6 +8,11 @@ public class BlankSquare extends JPanel implements MouseListener {
     private boolean multiplePieces =false;
     private boolean isBlack = false;
     private Pair coordinates;
+
+    /**
+     * Constructor for BlankSquare Class
+     * @param colour
+     */
     public BlankSquare(Color colour){
         setVisible(true);
         setOpaque(true);

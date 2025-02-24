@@ -8,7 +8,7 @@ public class Queen extends Piece {
     public Queen(boolean isOrange,int y,int x) {
         super(y,x);
         setOrange(isOrange);
-        setImage((new ImageIcon("src/QueenOrange.png")), (new ImageIcon("src/QueenYellow.png")));
+        setImage((new ImageIcon("src/Art/QueenOrange.png")), (new ImageIcon("src/Art/QueenYellow.png")));
         addMouseListener(this);
     }
 
@@ -40,7 +40,6 @@ public class Queen extends Piece {
         ArrayList<Pair> validMovesSearch = validMoves.stream()
                 .filter(x -> x.equals(new Pair(y2,x2)))
                 .collect(Collectors.toCollection(ArrayList<Pair>::new));
-        System.out.println(validMovesSearch.size() + "LIST SIZE");
 
         if (validMovesSearch.size() >= 1){
             return true;

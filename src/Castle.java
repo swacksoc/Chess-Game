@@ -10,7 +10,7 @@ public class Castle extends Piece {
     public Castle(boolean isOrange,int y,int x) {
         super(y,x);
         setOrange(isOrange);
-        setImage((new ImageIcon("src/CastleOrange.png")), (new ImageIcon("src/CastleYellow.png")));
+        setImage((new ImageIcon("src/Art/CastleOrange.png")), (new ImageIcon("src/Art/CastleYellow.png")));
         addMouseListener(this);
     }
 
