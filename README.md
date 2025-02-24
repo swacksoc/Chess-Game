@@ -2,7 +2,7 @@ Chess game using base Java
 
 **Aims**
 
-Fully implemented rules of chess -WIP
+Fully implemented rules of chess -90% Done -Castling and En Passen still to be added
 
 Have an opponent play chess against player to an acceptable standard -Not started Yet
 
@@ -19,8 +19,3 @@ Please excuse drawing of chess pieces I am not an artist
 
 ![image](https://github.com/Edt12/Chess-Game/assets/104518243/a801d450-e88d-4ed3-8398-69a992c85061)
 
-**Possible Ideas for Improvements**
-
-Get rid of inefficient for loops as I now realise my code could be made more efficient
-however this would require a major rework of the games systems which is why it is under
-future improvements
