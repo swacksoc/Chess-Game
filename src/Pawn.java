@@ -51,7 +51,7 @@ public class Pawn extends Piece {
                     }
                 }
 
-            } else if (isOrange()) {
+            } else {
                 if ((x1 == x2) && (y1 -1 == y2 || y1 - 2 == y2) && !Main.checkFront(movementCoords,pieces)) {
                     if (!visualCheck){
                         firstTurn = false;
@@ -95,8 +95,7 @@ public class Pawn extends Piece {
                     }
                 }
 
-            } else if (isOrange()) {
-
+            } else {
 
                 if (x1 == x2 && y1 - 1 == y2 && !Main.checkFront(movementCoords,pieces)){
                     System.out.println("normal move true Forward");

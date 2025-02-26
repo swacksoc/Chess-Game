@@ -104,11 +104,14 @@ public class Main {
 
                     if(pieces[currentY][currentX] != null && pieces[currentY][currentX].isOrange()){
                         collision = true;
+
                     }else if (pieces[currentY][currentX] != null && !pieces[currentY][currentX].isOrange() && opposingPieceCounter < 1){
                         opposingPieceCounter++;
                         validMoves.add(new Pair(currentY,currentX));
+
                     } else if (opposingPieceCounter >= 1) {
                         collision = true;
+
                     }else {
                         validMoves.add(new Pair(currentY,currentX));
                     }
@@ -243,9 +246,7 @@ public class Main {
             for (int i = 0; i < 64; i++) {
                 movementCoords[2] = j;
                 movementCoords[3] = k;
-                System.out.println(" DISPLAY COORDS X2 " + k + " Y2 " + j);
                 //This is to stop it from highlighting pieces of same colour as the current piece but also make sure it highlights enemy pieces as possible moves
-
                 if (piece.checkMovement(movementCoords,pieces,blankSquares,true)) {
                     System.out.println("CHECK MOVEMENT TRUE");
                     if (blankSquares[movementCoords[2]][movementCoords[3]].getComponentCount() == 1){
@@ -257,7 +258,7 @@ public class Main {
                                     blankSquares[movementCoords[2]][movementCoords[3]].repaint();
                                     
                                 }
-                            } else if (!piece.isOrange()) {
+                            } else {
                                 if (((Piece) Components[0]).isOrange()){
                                     blankSquares[movementCoords[2]][movementCoords[3]].setColour(Color.GREEN);
                                     blankSquares[movementCoords[2]][movementCoords[3]].repaint();
@@ -332,7 +333,7 @@ public class Main {
 
             resetPiecesPressed(pieces);
 
-            //Checks to see when a piece has been pressed and adds its coordinates to array
+            //Loop Checks to see when a piece has been pressed and adds its coordinates to array
             int j = 0;
             int k = 0;
             boolean piecePressed = false;
@@ -396,7 +397,7 @@ public class Main {
             BlankSquare[][] blankSquares = board.getBlankSquares();
             //Resets all values in blankSquares to false before checks begin
             resetBlankSquarePressed(blankSquares);
-            //Goes through all squares checking if they have been pressed if they have been pressed moves piece to them
+            //Loop Goes through all squares checking if they have been pressed if they have been pressed moves piece to them
             boolean squarePressed = false;
             //abort turn represents the state in which a player deselects a piece after clicking on it
             abortTurn = false;
@@ -458,13 +459,13 @@ public class Main {
                     JFrame yellowWinScreen = new JFrame("Yellow Wins");
                     yellowWinScreen.setSize(1000,1000);
                     yellowWinScreen.setVisible(true);
-                    board.dispose();
+                    board.dispose();//destroys board process
                     break;
                 case 2:
                     JFrame orangeWinScreen  = new JFrame("Orange Wins");
                     orangeWinScreen.setSize(1000,1000);
                     orangeWinScreen.setVisible(true);
-                    board.dispose();//
+                    board.dispose();
                     break;
 
             }
